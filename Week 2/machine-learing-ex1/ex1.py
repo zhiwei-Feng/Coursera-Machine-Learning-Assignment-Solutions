@@ -16,9 +16,7 @@ print('Plotting Data ...')
 data = np.loadtxt('ex1data1.txt', delimiter=',')
 X = data[:, 0]
 y = data[:, 1]
-m = len(y) # number of training examples
+m = len(y)  # number of training examples
 
 # plot data
 # Note: You have to complete the code in plotData.py
-
-
