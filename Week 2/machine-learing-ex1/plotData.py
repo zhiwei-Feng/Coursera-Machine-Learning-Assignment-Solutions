@@ -1,3 +1,6 @@
+import matplotlib.pyplot as plt
+
+
 def plot_data(x, y):
     """
     % ====================== YOUR CODE HERE ======================
@@ -11,4 +14,7 @@ def plot_data(x, y):
     %       appear as red crosses. Furthermore, you can make the
     %       markers larger by using plot(..., 'rx', 'MarkerSize', 10);
     """
-    pass
+    plt.plot(x, y, 'rx')
+    plt.xlabel('Population of City in 10,000s')
+    plt.ylabel('Profit in $10,000s')
+    plt.show()
