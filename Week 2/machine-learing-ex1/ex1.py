@@ -16,8 +16,7 @@ from mpl_toolkits.mplot3d import Axes3D
 print('Running warmUpExercise ... ')
 print('5x5 Identity Matrix: ')
 print(warmUpExercise.warm_up_exercise())
-print('Program paused. Press enter to continue.')
-os.system('pause')
+input('Program paused. Press enter to continue.')
 
 # ======================= Part 2: Plotting =======================
 print('Plotting Data ...')
@@ -29,8 +28,7 @@ m = len(y)  # number of training examples
 # plot data
 # Note: You have to complete the code in plotData.py
 plotData.plot_data(X, y)
-print('Program paused. Press enter to continue.')
-os.system('pause')
+input('Program paused. Press enter to continue.')
 
 # =================== Part 3: Cost and Gradient descent ===================
 X = np.c_[np.ones(m), X]  # Add a column of ones to x
@@ -51,8 +49,7 @@ J = computeCost.computer_cost(X, y, np.array([-1, 2]))
 print('With theta = [-1 ; 2]\nCost computed = {:.2f}'.format(J))
 print('Expected cost value (approx) 54.24')
 
-print('Program paused. Press enter to continue.')
-os.system('pause')
+input('Program paused. Press enter to continue.')
 
 print('Running Gradient Descent ...')
 # run gradient descent
@@ -78,8 +75,7 @@ print('For population = 35,000, we predict a profit of {}'.format(predict1 * 100
 predict2 = np.vdot(np.array([1, 7]).reshape(2, 1), theta)
 print('For population = 70,000, we predict a profit of {}'.format(predict2 * 10000))
 
-print('Program paused. Press enter to continue.')
-os.system('pause')
+input('Program paused. Press enter to continue.')
 
 # ============= Part 4: Visualizing J(theta_0, theta_1) =============
 print('Visualizing J(theta_0, theta_1) ...')
