@@ -4,7 +4,7 @@ import matplotlib.pyplot as plt
 from displayData import display_data
 from oneVsAll import one_vs_all
 from predictOneVsAll import predict_one_vs_all
-import lrCostFunction
+from lrCostFunction import cost_func, grad_func
 
 np.set_printoptions(precision=6, suppress=True)
 
@@ -34,8 +34,8 @@ theta_t = np.array([-2, -1, 1, 2])
 X_t = np.c_[np.ones(5), np.arange(1, 16).reshape(3, 5).T / 10]
 y_t = np.array([1, 0, 1, 0, 1])
 lambda_t = 3
-J = lrCostFunction.lrCostFunc(theta_t, X_t, y_t, lambda_t)
-grad = lrCostFunction.lrGradFunc(theta_t, X_t, y_t, lambda_t)
+J = cost_func(theta_t, X_t, y_t, lambda_t)
+grad = grad_func(theta_t, X_t, y_t, lambda_t)
 
 print('\nCost: {}\n'.format(J))
 print('Expected cost: 2.534819\n')
@@ -56,4 +56,4 @@ input('Program paused. Press enter to continue.\n')
 
 # ================ Part 3: Predict for One-Vs-All ================
 pred = predict_one_vs_all(all_theta, X)
-print('Training Set Accuracy: {:.1f}'.format(np.mean(pred == y) * 100))
+print('Training Set Accuracy: {:.1f}%'.format(np.mean(pred == y) * 100))

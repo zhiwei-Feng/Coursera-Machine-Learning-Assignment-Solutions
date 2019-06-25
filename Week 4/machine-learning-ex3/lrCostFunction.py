@@ -2,16 +2,14 @@ import numpy as np
 from sigmoid import sigmoid
 
 
-# ËðÊ§º¯Êý
-def lrCostFunc(theta, x, y, lam):
+def cost_func(theta, x, y, lam):
     m = np.size(y, 0)
     h = sigmoid(x.dot(theta))
     j = -1 / m * (y.dot(np.log(h)) + (1 - y).dot(np.log(1 - h))) + lam * (theta[1:].dot(theta[1:])) / (2 * m)
     return j
 
 
-# ÌÝ¶Èº¯Êý
-def lrGradFunc(theta, x, y, lam):
+def grad_func(theta, x, y, lam):
     m = np.size(y, 0)
     h = sigmoid(x.dot(theta))
     grad = np.zeros(np.size(theta))
