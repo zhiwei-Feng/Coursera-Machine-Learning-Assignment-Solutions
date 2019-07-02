@@ -4,6 +4,8 @@ import scipy.io as sio
 from linearRegCostFunction import linear_reg_cost_function
 from trainLinearReg import train_linear_reg
 from learningCurve import learning_curve
+from polyFeatures import poly_features
+from featureNormalize import feature_normalize
 
 # =========== Part 1: Loading and Visualizing Data =============
 # Load Training Data
@@ -72,3 +74,30 @@ for i in range(m):
     print('  \t{}\t\t{}\t{}\n'.format(i, error_train[i], error_val[i]))
 
 input('Program paused. Press enter to continue.\n')
+
+# =========== Part 6: Feature Mapping for Polynomial Regression =============
+p = 8
+
+# Map X onto Polynomial Features and Normalize
+X_poly = poly_features(X, p)
+X_poly, mu, sigma = feature_normalize(X_poly)
+X_poly = np.c_[np.ones(m), X_poly]
+
+# Map X_poly_test and normalize (using mu and sigma)
+X_poly_test = poly_features(Xtest, p)
+X_poly_test = X_poly_test - mu
+X_poly_test = X_poly_test / sigma
+X_poly_test = np.c_[np.ones(X_poly_test.shape[0]), X_poly_test]
+
+# Map X_poly_val and normalize (using mu and sigma)
+X_poly_val = poly_features(Xval, p)
+X_poly_val = X_poly_val - mu
+X_poly_val = X_poly_val / sigma
+X_poly_val = np.c_[np.ones(X_poly_val.shape[0]), X_poly_val]
+
+print('Normalized Training Example 1:\n')
+print('  {}  \n'.format(X_poly[0]))
+
+input('Program paused. Press enter to continue.\n')
+
+# =========== Part 7: Learning Curve for Polynomial Regression =============
