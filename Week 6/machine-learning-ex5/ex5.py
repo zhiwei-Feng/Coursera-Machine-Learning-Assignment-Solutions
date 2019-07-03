@@ -6,6 +6,8 @@ from trainLinearReg import train_linear_reg
 from learningCurve import learning_curve
 from polyFeatures import poly_features
 from featureNormalize import feature_normalize
+from plotFit import plot_fit
+from validationCurve import validation_curve
 
 # =========== Part 1: Loading and Visualizing Data =============
 # Load Training Data
@@ -101,3 +103,44 @@ print('  {}  \n'.format(X_poly[0]))
 input('Program paused. Press enter to continue.\n')
 
 # =========== Part 7: Learning Curve for Polynomial Regression =============
+lmd = 1
+theta = train_linear_reg(X_poly, y, lmd)
+
+# Plot training data and fit
+plt.plot(X, y, 'rx', linewidth=1.5)
+plot_fit(min(X), max(X), mu, sigma, theta, p)
+plt.xlabel('Change in water level (x)')
+plt.ylabel('Water flowing out of the dam (y)')
+plt.title('Polynomial Regression Fit (lambda = {})'.format(lmd))
+plt.show()
+
+error_train, error_val = learning_curve(X_poly, y, X_poly_val, yval, lmd)
+l1, l2 = plt.plot(np.arange(1, m + 1), error_train, np.arange(1, m + 1), error_val)
+plt.title('Polynomial Regression Learning Curve (lambda = {})'.format(lmd))
+plt.legend((l1, l2), ('Train', 'Cross Validation'))
+plt.xlabel('Number of training examples')
+plt.ylabel('Error')
+plt.axis([0, 13, 0, 100])
+plt.show()
+
+print('Polynomial Regression (lambda = {})\n\n'.format(lmd))
+print('# Training Examples\tTrain Error\tCross Validation Error\n')
+for i in range(m):
+    print('  \t{}\t\t{}\t{}\n'.format(i, error_train[i], error_val[i]))
+
+input('Program paused. Press enter to continue.\n')
+
+# =========== Part 8: Validation for Selecting Lambda =============
+lambda_vec, error_train, error_val = validation_curve(X_poly, y, X_poly_val, yval)
+
+L1, L2 = plt.plot(lambda_vec, error_train, lambda_vec, error_val)
+plt.legend((L1, L2), ('Train', 'Cross Validation'))
+plt.xlabel('lambda')
+plt.ylabel('Error')
+plt.show()
+
+print('lambda\t\tTrain Error\tValidation Error\n')
+for i in range(lambda_vec.size):
+    print(' {}\t{}\t{}\n'.format(lambda_vec[i], error_train[i], error_val[i]))
+
+input('Program paused. Press enter to continue.\n')
