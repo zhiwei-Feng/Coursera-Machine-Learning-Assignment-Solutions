@@ -3,6 +3,10 @@ import matplotlib.pyplot as plt
 import scipy.io as sio
 from findClosestCentroid import find_closest_centroid
 from computeCentroids import compute_centroids
+from runkMeans import run_kmeans
+
+plt.ion()
+np.set_printoptions(formatter={'float': '{: 0.6f}'.format})
 
 # ================= Part 1: Find Closest Centroids ====================
 print('Finding closest centroids.\n\n')
@@ -40,3 +44,22 @@ print('   [ 7.119387 3.616684 ]\n\n')
 
 input('Program paused. Press enter to continue.\n')
 
+# =================== Part 3: K-Means Clustering ======================
+print('\nRunning K-Means clustering on example dataset.\n\n')
+
+data = sio.loadmat('ex7data2.mat')
+X = data['X']
+
+# Setting for running K-Means
+K = 3
+max_iters = 10
+
+# here we set centroids to specific values
+initial_centroids = np.array([[3, 3], [6, 2], [8, 5]])
+
+# Run K-Means algorithm. The 'true' at the end tells our function to plot
+# the progress of K-Means
+centroids, idx = run_kmeans(X, initial_centroids, max_iters, True)
+print('\nK-Means Done.\n\n')
+
+input('Program paused. Press enter to continue.\n')
