@@ -6,6 +6,11 @@ from runkMeans import draw_line
 from projectData import project_data
 from recoverData import recover_data
 from displayData import display_data
+from imageio import imread
+from kMeansInitCentroids import kmeans_init_centroids
+from runkMeans import run_kmeans
+import numpy as np
+from mpl_toolkits.mplot3d import Axes3D
 
 plt.ion()
 # ================== Part 1: Load Example Dataset  ===================
@@ -130,3 +135,49 @@ plt.title('Recovered faces')
 plt.axis('equal')
 
 input('Program paused. Press enter to continue.\n')
+
+# === Part 8(a): Optional (ungraded) Exercise: PCA for Visualization ===
+plt.close()
+
+A = imread('bird_small.png')
+
+A = A/255
+img_size = A.shape
+X = A.reshape(img_size[0]*img_size[1], 3)
+K = 16
+max_iters = 10
+initial_centroids = kmeans_init_centroids(X, K)
+centroids, idx = run_kmeans(X, initial_centroids, max_iters)
+
+# %  Sample 1000 random indexes (since working with all the data is
+# %  too expensive. If you have a fast computer, you may increase this.
+sel = np.random.randint(X.shape[0], size=1000)
+
+# Setup Color Palette
+cm = plt.cm.get_cmap('RdYlBu')
+fig = plt.figure()
+ax = fig.add_subplot(111, projection='3d')
+ax.scatter(X[sel, 0], X[sel, 1], X[sel, 2], c=idx[sel].astype(
+    np.float64), s=15, cmap=cm, vmin=0, vmax=K)
+plt.title('Pixel dataset plotted in 3D. Color shows centroid memberships')
+
+input('Program paused. Press ENTER to continue')
+
+# === Part 8(b): Optional (ungraded) Exercise: PCA for Visualization ===
+X_norm, mu, sigma = feature_normalize(X)
+
+# PCA and project the data to 2D
+U, S, V = pca(X_norm)
+Z = project_data(X_norm, U, 2)
+
+plt.figure()
+zs = np.array([Z[s] for s in sel])
+idxs = np.array([idx[s] for s in sel])
+map = plt.get_cmap("jet")
+idxn = idxs.astype('float')/max(idxs.astype('float'))
+colors = map(idxn)
+plt.scatter(zs[:, 0], zs[:, 1], 15, edgecolors=colors,
+            marker='o', facecolors='none', lw=0.5)
+plt.title('Pixel dataset plotted in 2D, using PCA for dimensionality reduction')
+
+input('ex7_pca Finished. Press ENTER to exit')
