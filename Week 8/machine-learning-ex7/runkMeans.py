@@ -6,7 +6,7 @@ import findClosestCentroid as fc
 import computeCentroids as cc
 
 
-def run_kmeans(X, initial_centroids, max_iters, plot):
+def run_kmeans(X, initial_centroids, max_iters, plot=False):
     if plot:
         plt.figure()
 
