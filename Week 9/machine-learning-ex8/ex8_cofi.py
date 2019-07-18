@@ -65,3 +65,21 @@ print('\nChecking Gradients (without regularization) ... ')
 check_cost_function(0)
 
 input('\nProgram paused. Press enter to continue.\n')
+
+# ========= Part 4: Collaborative Filtering Cost Regularization ========
+# Evaluate cost function
+J, _ = cofi_cost_func(np.r_[X.flatten(), Theta.flatten()],
+                      Y, R, num_users, num_movies, num_features, 1.5)
+
+print('Cost at loaded parameters (lambda = 1.5): {} \n (this value should be \
+      about 31.34)'.format(J))
+
+input('\nProgram paused. Press enter to continue.\n')
+
+# ======= Part 5: Collaborative Filtering Gradient Regularization ======
+print('\nChecking Gradients (with regularization) ... ')
+
+# Check gradients by running checkNNGradients
+check_cost_function(1.5)
+
+input('\nProgram paused. Press enter to continue.\n')

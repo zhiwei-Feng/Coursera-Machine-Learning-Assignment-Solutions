@@ -38,7 +38,11 @@ def cofi_cost_func(params, Y, R, num_users, num_movies, num_features, Lambda):
     %
     '''
     hypothesis = (X @ Theta.T - Y) * R
-    J = np.sum(hypothesis ** 2) / 2
+    J = np.sum(hypothesis ** 2) / 2 + \
+        (Lambda*np.sum(Theta**2)/2)+(Lambda*np.sum(X**2)/2)
+
+    X_grad = hypothesis @ Theta + Lambda*X
+    Theta_grad = hypothesis.T @ X + Lambda*Theta
 
     grad = np.r_[X_grad.flatten(), Theta_grad.flatten()]
     return J, grad
