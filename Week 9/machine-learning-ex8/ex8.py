@@ -58,3 +58,21 @@ plt.scatter(X[outliers, 0], X[outliers, 1], marker='o',
             facecolors='none', edgecolors='r')
 
 input('Program paused. Press ENTER to continue')
+
+# ================== Part 4: Multidimensional Outliers ===================
+# X, Xval, yval in your environment
+data = loadmat('ex8data2.mat')
+X, Xval, yval = data['X'], data['Xval'], data['yval'].flatten()
+
+mu, sigma2 = estimate_gaussian(X)
+
+p = multivariate_gaussian(X, mu, sigma2)
+
+pval = multivariate_gaussian(Xval, mu, sigma2)
+
+epsilon, F1 = select_threshold(yval, pval)
+print('Best epsilon found using cross-validation: {}'.format(epsilon))
+print('Best F1 on Cross Validation Set:  {}'.format(F1))
+print('   (you should see a value epsilon of about 1.38e-18)')
+print('   (you should see a Best F1 value of  0.615385)\n')
+print('# Outliers found: {}\n\n'.format(np.sum(p < epsilon)))
